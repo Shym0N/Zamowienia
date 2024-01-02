@@ -9,5 +9,9 @@ namespace Zamowienia.Data
             : base(options)
         {
         }
+
+        //public DbSet<Pracownik> Pracownicy { get; set; }
+        //public DbSet<Produkt> Produkty { get; set; }
+        //public DbSet<Zamowienie> Zamowienia { get; set; }
     }
 }
