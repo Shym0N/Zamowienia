@@ -1,0 +1,15 @@
+﻿@model Zamowienia.Models.Order
+
+<h2>Składanie Zamówienia</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="listaPrzedmiotow"></label>
+        <input asp-for="listaPrzedmiotow" class="form-control" />
+        <span asp-validation-for="listaPrzedmiotow" class="text-danger"></span>
+
+
+    </div>
+    <!-- Pola dla innych właściwości modelu Order -->
+    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+</form>

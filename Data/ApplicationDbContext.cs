@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Zamowienia.Models;
 
 namespace Zamowienia.Data
 {
@@ -9,5 +10,10 @@ namespace Zamowienia.Data
             : base(options)
         {
         }
+
+        //public DbSet<Pracownik> Pracownicy { get; set; }
+        //public DbSet<Produkt> Produkty { get; set; }
+        public DbSet<Order> Zamowienia { get; set; }
+        public DbSet<Pracownik> Pracownicy { get; set; }
     }
 }
