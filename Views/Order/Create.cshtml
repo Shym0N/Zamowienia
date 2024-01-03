@@ -1,5 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Zamowienia.Models.Order
+
+<h2>Składanie Zamówienia</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="listaPrzedmiotow"></label>
+        <input asp-for="listaPrzedmiotow" class="form-control" />
+        <span asp-validation-for="listaPrzedmiotow" class="text-danger"></span>
+
+
+    </div>
+    <!-- Pola dla innych właściwości modelu Order -->
+    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+</form>
