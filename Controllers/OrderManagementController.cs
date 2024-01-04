@@ -1,75 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Zamowienia.Data;
+using System.Threading.Tasks;
 
-namespace Zamowienia.Controllers
+public class OrderManagementController : Controller
 {
-    public class OrderManagementController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public OrderManagementController(ApplicationDbContext context)
     {
-        public ActionResult Index()
+        _context = context;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        var zamowienia = await _context.Zamowienia.ToListAsync();
+        return View(zamowienia);
+    }
+    [HttpPost]
+    public async Task<IActionResult> RealizujZamowienie(int id)
+    {
+        var zamowienie = await _context.Zamowienia.FindAsync(id);
+        if (zamowienie == null)
         {
-            return View();
+            return NotFound();
         }
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        zamowienie.czyZrealizowano = 'T';
+        _context.Update(zamowienie);
+        await _context.SaveChangesAsync();
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        return RedirectToAction("Index");
     }
 }

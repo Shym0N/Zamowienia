@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Zamowienia.Models.Order>
+
 @{
+    ViewData["Title"] = "Zarządzanie Zamówieniami";
 }
+
+<h2>Zarządzanie Zamówieniami</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Lista Przedmiotów</th>
+            <th>Pracownik ID</th>
+            <th>Czy Zrealizowano</th>
+            <!-- Możesz dodać więcej kolumn jeśli potrzebujesz -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zamowienie in Model)
+        {
+            <tr>
+                <td>@zamowienie.id</td>
+                <td>@zamowienie.data</td>
+                <td>@zamowienie.listaPrzedmiotow</td>
+                <td>@zamowienie.pracownik_id</td>
+                <td>@zamowienie.czyZrealizowano</td>
+                <td> @if (zamowienie.czyZrealizowano != 'T')
+            {
+                <form asp-action="RealizujZamowienie" method="post">
+                    <input type="hidden" name="id" value="@zamowienie.id" />
+                    <input type="submit" value="REALIZUJ ZAMÓWIENIE" class="btn btn-success" />
+                </form>
+            }</td>
+                <!-- Możesz dodać więcej pól -->
+            </tr>
+        }
+    </tbody>
+</table>
