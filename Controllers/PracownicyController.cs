@@ -21,7 +21,6 @@ namespace Zamowienia.Controllers
             {
                 var connection = _context.Database.GetDbConnection();
                 await connection.OpenAsync();
-                // Tutaj możesz wykonać proste zapytanie, np. "SELECT 1"
                 await connection.CloseAsync();
                 Console.WriteLine("Połączenie z bazą danych: udane.");
             }

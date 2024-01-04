@@ -1,15 +1,10 @@
-﻿@model Zamowienia.Models.Order
+﻿@model Zamowienia.Models.OrderFormModel
 
-<h2>Składanie Zamówienia</h2>
-
-<form asp-action="Create">
+<form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="listaPrzedmiotow"></label>
-        <input asp-for="listaPrzedmiotow" class="form-control" />
-        <span asp-validation-for="listaPrzedmiotow" class="text-danger"></span>
-
-
+        <label for="listaPrzedmiotow">Lista Przedmiotów</label>
+        <input type="text" class="form-control" id="listaPrzedmiotow" name="ListaPrzedmiotow" value="@Model.ListaPrzedmiotow" />
     </div>
-    <!-- Pola dla innych właściwości modelu Order -->
+
     <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
 </form>
