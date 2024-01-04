@@ -18,7 +18,7 @@ namespace Zamowienia.Data.Migrations
                     data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     listaPrzedmiotow = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     pracownik_id = table.Column<int>(type: "int", nullable: false),
-                    czyZrealizowano = table.Column<string>(type: "nvarchar(1)", nullable: false)
+                    czyZrealizowano = table.Column<string>(type: "nvarchar(25)", nullable: false)
                 },
                 constraints: table =>
                 {

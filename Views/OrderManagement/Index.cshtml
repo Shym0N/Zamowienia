@@ -10,10 +10,11 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Data</th>
+            <th>Data Złożenia</th>
             <th>Lista Przedmiotów</th>
             <th>Pracownik ID</th>
             <th>Czy Zrealizowano</th>
+            <th>Data edycji</th>
             <!-- Możesz dodać więcej kolumn jeśli potrzebujesz -->
         </tr>
     </thead>
@@ -22,17 +23,27 @@
         {
             <tr>
                 <td>@zamowienie.id</td>
-                <td>@zamowienie.data</td>
+                <td>@zamowienie.dataZlozenia</td>
                 <td>@zamowienie.listaPrzedmiotow</td>
-                <td>@zamowienie.pracownik_id</td>
+                <td>@zamowienie.pracownikId</td>
                 <td>@zamowienie.czyZrealizowano</td>
-                <td> @if (zamowienie.czyZrealizowano != 'T')
-            {
-                <form asp-action="RealizujZamowienie" method="post">
-                    <input type="hidden" name="id" value="@zamowienie.id" />
-                    <input type="submit" value="REALIZUJ ZAMÓWIENIE" class="btn btn-success" />
-                </form>
-            }</td>
+                <td>@zamowienie.dataRealizacji</td>
+                <td>
+                    @if (zamowienie.czyZrealizowano != "TAK")
+                    {
+                        <form asp-action="RealizujZamowienie" method="post">
+                            <input type="hidden" name="id" value="@zamowienie.id" />
+                            <input type="submit" value="REALIZUJ ZAMÓWIENIE" class="btn btn-success" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="CofnijRealizacje" method="post">
+                            <input type="hidden" name="id" value="@zamowienie.id" />
+                            <input type="submit" value="COFNIJ REALIZACJĘ" class="btn btn-warning" />
+                        </form>
+                    }
+                </td>
                 <!-- Możesz dodać więcej pól -->
             </tr>
         }

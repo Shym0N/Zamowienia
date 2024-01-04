@@ -5,9 +5,10 @@ namespace Zamowienia.Models
     public class Order
     {
         public int id { get; set; }
-        public DateTime data { get; set; }
+        public DateTime dataZlozenia { get; set; }
         public string listaPrzedmiotow { get; set; }
-        public int pracownik_id { get; set; }
-        public char czyZrealizowano { get; set; }
+        public int pracownikId { get; set; }
+        public string czyZrealizowano { get; set; }
+        public DateTime? dataRealizacji { get; set; }
     }
 }

@@ -27,12 +27,13 @@ public class OrderController : Controller
         {
             var zamowienie = new Order
             {
-                data = DateTime.Now,
+                dataZlozenia = DateTime.Now,
                 listaPrzedmiotow = orderForm.ListaPrzedmiotow,
-                pracownik_id = 1,
-                czyZrealizowano = 'N'
+                pracownikId = 1, //ZMIANA NA DYNAMICZNY
+                czyZrealizowano = "NIE",
+                dataRealizacji = DateTime.Now,
             };
-
+            
             _context.Zamowienia.Add(zamowienie);
             await _context.SaveChangesAsync();
             return RedirectToAction("OrderSuccess");
