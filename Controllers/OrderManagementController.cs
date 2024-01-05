@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Zamowienia.Data;
 using System.Threading.Tasks;
+using System;
 
 public class OrderManagementController : Controller
 {
@@ -14,9 +15,13 @@ public class OrderManagementController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var zamowienia = await _context.Zamowienia.ToListAsync();
+        var zamowienia = await _context.Zamowienia
+            .Where(z => z.listaPrzedmiotow != null) // Sprawdzamy, czy listaPrzedmiotow nie jest NULL
+            .ToListAsync();
+
         return View(zamowienia);
     }
+
     [HttpPost]
     public async Task<IActionResult> RealizujZamowienie(int id)
     {
@@ -33,6 +38,7 @@ public class OrderManagementController : Controller
 
         return RedirectToAction("Index");
     }
+
     [HttpPost]
     public async Task<IActionResult> CofnijRealizacje(int id)
     {
@@ -49,5 +55,4 @@ public class OrderManagementController : Controller
 
         return RedirectToAction("Index");
     }
-
 }

@@ -1,9 +1,24 @@
 ﻿@model Zamowienia.Models.OrderFormModel
+@Html.ValidationSummary(true)
+
+<h2>Składanie Zamówienia</h2>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-group">
-        <label for="listaPrzedmiotow">Lista Przedmiotów</label>
-        <input type="text" class="form-control" id="listaPrzedmiotow" name="ListaPrzedmiotow" value="@Model.ListaPrzedmiotow" />
+        <label>Wybierz produkty:</label>
+        @for (int i = 0; i < Model.Produkty.Count; i++)
+        {
+            <div class="form-check">
+                <input asp-for="Produkty[i].IsSelected" type="checkbox" class="form-check-input" />
+                <label class="form-check-label">@Model.Produkty[i].NazwaProduktu</label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="uwagi"></label>
+        <textarea asp-for="uwagi" class="form-control"></textarea>
+        <span asp-validation-for="uwagi" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Złóż zamówienie</button>

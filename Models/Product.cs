@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Zamowienia.Models
 {
-    public class Product : Controller
+    public class Przedmiot
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public int Id { get; set; }
+
+        [Display(Name = "Nazwa Produktu")]
+        public string NazwaProduktu { get; set; }
     }
 }

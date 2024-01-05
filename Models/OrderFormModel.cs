@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Zamowienia.Models
 {
     public class OrderFormModel
     {
-        [Required]
-        [Display(Name = "Lista Przedmiotów")]
-        public string ListaPrzedmiotow { get; set; }
+        // Przykład atrybutu walidacji
+        [Required(ErrorMessage = "Pole uwagi jest wymagane.")]
+        public string? uwagi { get; set; }
+
+        public List<PrzedmiotViewModel> Produkty { get; set; }
     }
+
 }

@@ -13,7 +13,9 @@ namespace Zamowienia.Data
 
         //public DbSet<Pracownik> Pracownicy { get; set; }
         //public DbSet<Produkt> Produkty { get; set; }
-        public DbSet<Order> Zamowienia { get; set; }
-        public DbSet<Pracownik> Pracownicy { get; set; }
+        public DbSet<Order>? Zamowienia { get; set; }
+        public DbSet<Pracownik>? Pracownicy { get; set; }
+        public DbSet<Przedmiot>? Przedmioty { get; set; }
+
     }
 }

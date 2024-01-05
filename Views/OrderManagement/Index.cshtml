@@ -14,7 +14,8 @@
             <th>Lista Przedmiotów</th>
             <th>Pracownik ID</th>
             <th>Czy Zrealizowano</th>
-            <th>Data edycji</th>
+            <th>Data ostatniej edycji</th>
+            <th>Uwagi</th>
             <!-- Możesz dodać więcej kolumn jeśli potrzebujesz -->
         </tr>
     </thead>
@@ -28,6 +29,7 @@
                 <td>@zamowienie.pracownikId</td>
                 <td>@zamowienie.czyZrealizowano</td>
                 <td>@zamowienie.dataRealizacji</td>
+                <td>@zamowienie.uwagi</td>
                 <td>
                     @if (zamowienie.czyZrealizowano != "TAK")
                     {
@@ -44,7 +46,6 @@
                         </form>
                     }
                 </td>
-                <!-- Możesz dodać więcej pól -->
             </tr>
         }
     </tbody>
