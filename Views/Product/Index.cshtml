@@ -1,5 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ProductIndexViewModel
+
+<div class="container">
+    <div class="row">
+        <!-- Tabela z przedmiotami -->
+        <div class="col-md-6">
+            <h2>Lista Produktów</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nazwa Produktu</th>
+                        <th></th> <!-- Kolumna dla przycisków Usuń -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Przedmioty)
+                    {
+                        <tr>
+                            <td>@item.NazwaProduktu</td>
+                            <td>
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formularz dodawania nowego przedmiotu -->
+        <div class="col-md-6">
+            <h2>Dodaj Nowy Produkt</h2>
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label asp-for="NowyPrzedmiot.NazwaProduktu" class="control-label"></label>
+                    <input asp-for="NowyPrzedmiot.NazwaProduktu" class="form-control" />
+                </div>
+                <!-- inne pola formularza -->
+                <button type="submit" class="btn btn-primary">Dodaj</button>
+            </form>
+        </div>
+    </div>
+</div>

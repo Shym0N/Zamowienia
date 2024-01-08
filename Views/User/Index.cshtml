@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<h2>Zarządzanie Użytkownikami</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Login</th>
+            <th>Typ Użytkownika</th>
+            <th>Uprawnienia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Imie</td>
+                <td>@user.Nazwisko</td>
+                <td>@user.UserName</td>
+                <td>@user.TypUzytkownika</td>
+                <td>
+                    <form asp-action="ChangeRole" asp-route-id="@user.Id">
+                        <button type="submit" class="btn btn-primary">
+                            @if (user.TypUzytkownika == "Administrator")
+                            {
+                                @:Odbierz
+                            }
+                            else
+                            {
+                                @:Nadaj
+                            }
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
