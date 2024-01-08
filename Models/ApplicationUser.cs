@@ -4,9 +4,9 @@ namespace Zamowienia.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Imie { get; set; }
-        public string Nazwisko { get; set; }
-        public string TypUzytkownika { get; set; }
+        public string? Imie { get; set; }
+        public string? Nazwisko { get; set; }
+        public string? TypUzytkownika { get; set; }
 
     }
 }
