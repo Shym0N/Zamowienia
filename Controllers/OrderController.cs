@@ -58,8 +58,7 @@ public class OrderController : Controller
 
         // Tworzenie nowego zamówienia
         var zamowienie = new Order
-        {
-            dataZlozenia = DateTime.Now,
+        {    
             listaPrzedmiotow = string.Join(", ", selectedProducts),
             pracownikId = 1, // przykładowy ID pracownika
             czyZrealizowano = "NIE",

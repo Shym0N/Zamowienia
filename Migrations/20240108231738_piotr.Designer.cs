@@ -9,11 +9,11 @@ using Zamowienia.Data;
 
 #nullable disable
 
-namespace Zamowienia.Data.Migrations
+namespace Zamowienia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240106235416_finaltest")]
-    partial class finaltest
+    [Migration("20240108231738_piotr")]
+    partial class piotr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,7 +161,7 @@ namespace Zamowienia.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Zamowienia.Models.User", b =>
+            modelBuilder.Entity("Zamowienia.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -181,7 +181,6 @@ namespace Zamowienia.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Imie")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -191,7 +190,6 @@ namespace Zamowienia.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nazwisko")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -218,7 +216,6 @@ namespace Zamowienia.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("TypUzytkownika")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
@@ -254,7 +251,9 @@ namespace Zamowienia.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("dataZlozenia")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("listaPrzedmiotow")
                         .IsRequired()
@@ -281,9 +280,12 @@ namespace Zamowienia.Data.Migrations
 
                     b.Property<string>("NazwaProduktu")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NazwaProduktu")
+                        .IsUnique();
 
                     b.ToTable("Przedmioty");
                 });
@@ -299,7 +301,7 @@ namespace Zamowienia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Zamowienia.Models.User", null)
+                    b.HasOne("Zamowienia.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -308,7 +310,7 @@ namespace Zamowienia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Zamowienia.Models.User", null)
+                    b.HasOne("Zamowienia.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -323,7 +325,7 @@ namespace Zamowienia.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zamowienia.Models.User", null)
+                    b.HasOne("Zamowienia.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -332,7 +334,7 @@ namespace Zamowienia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Zamowienia.Models.User", null)
+                    b.HasOne("Zamowienia.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

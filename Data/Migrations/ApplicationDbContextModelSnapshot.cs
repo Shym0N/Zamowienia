@@ -8,7 +8,7 @@ using Zamowienia.Data;
 
 #nullable disable
 
-namespace Zamowienia.Data.Migrations
+namespace Zamowienia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -249,7 +249,9 @@ namespace Zamowienia.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("dataZlozenia")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("listaPrzedmiotow")
                         .IsRequired()
@@ -276,9 +278,12 @@ namespace Zamowienia.Data.Migrations
 
                     b.Property<string>("NazwaProduktu")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NazwaProduktu")
+                        .IsUnique();
 
                     b.ToTable("Przedmioty");
                 });
