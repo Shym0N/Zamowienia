@@ -12,8 +12,8 @@ using Zamowienia.Data;
 namespace Zamowienia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240108231738_piotr")]
-    partial class piotr
+    [Migration("20240108234356_piotr1")]
+    partial class piotr1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
