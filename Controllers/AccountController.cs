@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Zamowienia.Models;
+using Zamowienia.ViewModels;
 using System;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations; // Dla atrybutów walidacji
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Zamowienia.Controllers
@@ -39,13 +40,14 @@ namespace Zamowienia.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string username = GenerateUsername(model.Imie, model.Nazwisko);
                     var user = new ApplicationUser
                     {
-                        UserName = model.Email,
+                        UserName = username,
                         Email = model.Email,
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
-                        TypUzytkownika = model.TypUzytkownika
+                        TypUzytkownika = string.IsNullOrEmpty(model.TypUzytkownika) ? "Użytkownik" : model.TypUzytkownika
                     };
 
                     var result = await _userManager.CreateAsync(user, model.Password);
@@ -72,6 +74,12 @@ namespace Zamowienia.Controllers
                 return View("Registration", model);
             }
         }
+        private string GenerateUsername(string firstName, string lastName)
+        {
+            string firstPart = firstName.Length > 2 ? firstName.Substring(0, 3) : firstName;
+            string secondPart = lastName.Length > 2 ? lastName.Substring(0, 3) : lastName;
+            return (firstPart + secondPart).ToLower();
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -86,23 +94,30 @@ namespace Zamowienia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                ApplicationUser user = null;
+                if (model.EmailOrUsername.Contains("@"))
                 {
-                    return RedirectToLocal(returnUrl);
+                    user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    user = await _userManager.FindByNameAsync(model.EmailOrUsername);
                 }
+
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
-            // Jeśli coś poszło nie tak, ponownie wyświetl formularz
             return View(model);
         }
 
@@ -126,12 +141,11 @@ namespace Zamowienia.Controllers
             }
         }
     }
-
+/*
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string EmailOrUsername { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -139,5 +153,5 @@ namespace Zamowienia.Controllers
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-    }
+    }*/
 }

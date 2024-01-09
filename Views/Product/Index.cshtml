@@ -27,7 +27,6 @@
                 </tbody>
             </table>
         </div>
-
         <!-- Formularz dodawania nowego przedmiotu -->
         <div class="col-md-6">
             <h2>Dodaj Nowy Produkt</h2>
@@ -35,10 +34,17 @@
                 <div class="form-group">
                     <label asp-for="NowyPrzedmiot.NazwaProduktu" class="control-label"></label>
                     <input asp-for="NowyPrzedmiot.NazwaProduktu" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.NowyPrzedmiot.NazwaProduktu)
                 </div>
-                <!-- inne pola formularza -->
                 <button type="submit" class="btn btn-primary">Dodaj</button>
             </form>
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty].Errors.Count > 0)
+            {
+                    <div class="alert alert-danger">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    </div>
+            }
         </div>
     </div>
 </div>

@@ -18,8 +18,7 @@ namespace Zamowienia.Models
         public string Imie { get; set; }
         [Required]
         public string Nazwisko { get; set; }
-        [Required]
-        public string TypUzytkownika { get; set; }
+        public string? TypUzytkownika { get; set; }
     }
 
 }

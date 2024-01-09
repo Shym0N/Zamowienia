@@ -76,3 +76,12 @@ body {
     background-color: #007bff;
     color: white;
 }
+.validation-summary-errors {
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.custom-alert {
+    max-width: 300px;
+    margin: 0 auto;
+}

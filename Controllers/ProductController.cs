@@ -47,19 +47,27 @@ namespace Zamowienia.Controllers
             return View();
         }
 
-        // POST: Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NazwaProduktu")] Przedmiot nowyPrzedmiot)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(nowyPrzedmiot);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var existingProduct = await _context.Przedmioty
+                    .AnyAsync(p => p.NazwaProduktu.ToLower() == nowyPrzedmiot.NazwaProduktu.ToLower());
+
+                if (!existingProduct)
+                {
+                    _context.Add(nowyPrzedmiot);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Produkt o tej nazwie już istnieje w bazie danych.");
+                }
             }
 
-            // Jeśli model nie jest prawidłowy, zwróć do widoku z pełnym modelem
             var viewModel = new ProductIndexViewModel
             {
                 Przedmioty = await _context.Przedmioty.ToListAsync(),
@@ -67,6 +75,8 @@ namespace Zamowienia.Controllers
             };
             return View("Index", viewModel);
         }
+
+
 
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int id)
