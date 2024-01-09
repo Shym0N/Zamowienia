@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Zamowienia.Data;
 using System.Threading.Tasks;
 using System;
+using System.Text;
 
 public class OrderManagementController : Controller
 {
@@ -55,4 +56,24 @@ public class OrderManagementController : Controller
 
         return RedirectToAction("Index");
     }
+
+    //[Route("OrderManagement/PobierzPlikTekstowy/{id}")]
+    public  IActionResult PobierzPlikTekstowy(int id)
+    {
+        var zamowienie = _context.Zamowienia.FirstOrDefault(o => o.id == id);
+        if (zamowienie == null)
+        {
+            return NotFound();
+        }
+
+        var trescPliku = zamowienie.listaPrzedmiotow;
+
+        var plikBytes = Encoding.UTF8.GetBytes(trescPliku);
+        var nazwaPliku = $"Zamowienia_{id}.txt";
+
+        return File(plikBytes, "text/plain", nazwaPliku);
+    }
+
+
 }
+

@@ -67,19 +67,19 @@ namespace Zamowienia.Controllers
             return View("Index", viewModel);
         }
 
-        // GET: Product/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            var przedmiot = await _context.Przedmioty.FindAsync(id);
-            if (przedmiot == null)
-            {
-                return NotFound();
-            }
-            return View(przedmiot);
-        }
+        /* // GET: Product/Edit/5
+         public async Task<IActionResult> Edit(int id)
+         {
+             var przedmiot = await _context.Przedmioty.FindAsync(id);
+             if (przedmiot == null)
+             {
+                 return NotFound();
+             }
+             return View(przedmiot);
+    }*/
 
         // POST: Product/Edit/5
-        [HttpPost]
+      /*  [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NazwaProduktu")] Przedmiot przedmiot)
         {
@@ -87,8 +87,6 @@ namespace Zamowienia.Controllers
             {
                 return NotFound();
             }
-
-            
                 try
                 {
                     _context.Update(przedmiot);
@@ -107,7 +105,7 @@ namespace Zamowienia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             return View(przedmiot);
-        }
+        }*/
 
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int id)
@@ -139,3 +137,4 @@ namespace Zamowienia.Controllers
         }
     }
 }
+

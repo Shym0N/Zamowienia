@@ -277,13 +277,13 @@ namespace Zamowienia.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("NazwaProduktu")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NazwaProduktu")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[NazwaProduktu] IS NOT NULL");
 
                     b.ToTable("Przedmioty");
                 });

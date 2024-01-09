@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Zamowienia.Migrations
 {
-    public partial class piotr1 : Migration
+    public partial class piotr : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,7 +57,7 @@ namespace Zamowienia.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NazwaProduktu = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    NazwaProduktu = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -231,7 +231,8 @@ namespace Zamowienia.Migrations
                 name: "IX_Przedmioty_NazwaProduktu",
                 table: "Przedmioty",
                 column: "NazwaProduktu",
-                unique: true);
+                unique: true,
+                filter: "[NazwaProduktu] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
