@@ -15,8 +15,9 @@ namespace Zamowienia.Data
         public DbSet<Order>? Zamowienia { get; set; }
         public DbSet<Przedmiot>? Przedmioty { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+       protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
 
             builder.Entity<Order>(o =>

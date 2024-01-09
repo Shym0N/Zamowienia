@@ -3,6 +3,15 @@
 @{
     ViewData["Title"] = "Zarządzanie Zamówieniami";
 }
+<style>
+    /* Dodane style CSS dla szerokości kolumny "Lista Przedmiotów" */
+    .listaPrzedmiotow {
+        max-width: 400px; /* Dostosuj szerokość według potrzeb */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
 
 <h2>Zarządzanie Zamówieniami</h2>
 
@@ -16,7 +25,6 @@
             <th>Czy Zrealizowano</th>
             <th>Data ostatniej edycji</th>
             <th>Uwagi</th>
-            <!-- Możesz dodać więcej kolumn jeśli potrzebujesz -->
         </tr>
     </thead>
     <tbody>
@@ -25,7 +33,16 @@
             <tr>
                 <td>@zamowienie.id</td>
                 <td>@zamowienie.dataZlozenia</td>
-                <td>@zamowienie.listaPrzedmiotow</td>
+                <td>
+                    @foreach (var przedmiot in zamowienie.listaPrzedmiotow.Split(','))
+                    {
+                        <div class="listaPrzedmiotow ">
+                        <input type="checkbox" name="selectedItems" value="@przedmiot" />
+                        @przedmiot
+                            <br />
+                        </div>
+                    }
+                </td>
                 <td>@zamowienie.pracownikId</td>
                 <td>@zamowienie.czyZrealizowano</td>
                 <td>@zamowienie.dataRealizacji</td>

@@ -7,6 +7,7 @@ namespace Zamowienia.Models
         public int Id { get; set; }
 
         [Display(Name = "Nazwa Produktu")]
-        public string NazwaProduktu { get; set; }
+        [UniqueProduct]
+        public string? NazwaProduktu { get; set; }
     }
 }

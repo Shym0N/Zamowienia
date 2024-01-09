@@ -59,7 +59,6 @@ namespace Zamowienia.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Jeśli model nie jest prawidłowy, zwróć do widoku z pełnym modelem
             var viewModel = new ProductIndexViewModel
             {
                 Przedmioty = await _context.Przedmioty.ToListAsync(),
@@ -89,8 +88,7 @@ namespace Zamowienia.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     _context.Update(przedmiot);
@@ -108,7 +106,6 @@ namespace Zamowienia.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
             return View(przedmiot);
         }
 

@@ -29,16 +29,22 @@
         </div>
 
         <!-- Formularz dodawania nowego przedmiotu -->
+
         <div class="col-md-6">
+        
+            
             <h2>Dodaj Nowy Produkt</h2>
-            <form asp-action="Create" method="post">
-                <div class="form-group">
+
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
                     <label asp-for="NowyPrzedmiot.NazwaProduktu" class="control-label"></label>
                     <input asp-for="NowyPrzedmiot.NazwaProduktu" class="form-control" />
                 </div>
                 <!-- inne pola formularza -->
                 <button type="submit" class="btn btn-primary">Dodaj</button>
-            </form>
+                </form>
+  
         </div>
     </div>
 </div>
