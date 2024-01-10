@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 using Zamowienia.Models;
+using Zamowienia.Attributes;
 
 namespace Zamowienia.Controllers
 {
@@ -27,6 +30,10 @@ namespace Zamowienia.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

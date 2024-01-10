@@ -1,3 +1,26 @@
+:root {
+    --primary-color: #ffffff;
+    --dark-header-footer: #343A40;
+    --main-background: #F8F9FA;
+    --main-text-color: #212529;
+    --success-color: #28A745;
+    --error-color: #DC3545;
+    --panel-background: #E9ECEF;
+}
+.header, .footer {
+    background-color: var(--dark-header-footer);
+    color: white;
+}
+body {
+    background-color: var(--main-background);
+    color: var(--main-text-color);
+}
+a, .btn {
+    color: var(--primary-color);
+}
+.panel, .section {
+    background-color: var(--panel-background);
+}
 html {
   font-size: 14px;
 }

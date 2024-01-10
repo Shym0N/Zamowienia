@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
+using Zamowienia.Attributes;
 
 namespace Zamowienia.Controllers
 {
@@ -126,7 +127,7 @@ namespace Zamowienia.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
@@ -141,17 +142,4 @@ namespace Zamowienia.Controllers
             }
         }
     }
-/*
-    public class LoginViewModel
-    {
-        [Required]
-        public string EmailOrUsername { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-    }*/
 }

@@ -4,9 +4,13 @@ using Zamowienia.Data;
 using Zamowienia.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Zamowienia.Attributes;
 
 namespace Zamowienia.Controllers
 {
+    [CustomAuthorize("Administrator")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
