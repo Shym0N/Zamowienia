@@ -7,6 +7,11 @@
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div>
+        <label asp-for="UserName">Nazwa Użytkownika</label>
+        <input asp-for="UserName"/>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div>
         <label asp-for="Password">Hasło</label>
         <input asp-for="Password" type="password" />
         <span asp-validation-for="Password" class="text-danger"></span>
@@ -22,6 +27,12 @@
         <input asp-for="Nazwisko" />
         <span asp-validation-for="Nazwisko" class="text-danger"></span>
     </div>
+
+    <div class="form-group">
+        <label asp-for="TypUzytkownika" class="control-label">Typ Użytkownika</label>
+        <input asp-for="TypUzytkownika" type="text" />
+    </div>
+
 
     <button type="submit">Zarejestruj się</button>
 </form>

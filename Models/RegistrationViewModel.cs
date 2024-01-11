@@ -19,6 +19,9 @@ namespace Zamowienia.Models
         [Required]
         public string Nazwisko { get; set; }
         public string? TypUzytkownika { get; set; }
+
+        [Required]
+        public string? UserName { get; set; }
     }
 
 }

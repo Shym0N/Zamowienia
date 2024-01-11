@@ -4,9 +4,9 @@
     ViewData["Title"] = "Zarządzanie Zamówieniami";
 }
 <style>
-    /* Dodane style CSS dla szerokości kolumny "Lista Przedmiotów" */
+
     .listaPrzedmiotow {
-        max-width: 400px; /* Dostosuj szerokość według potrzeb */
+        max-width: 400px; 
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -26,6 +26,7 @@
             <th>Czy Zrealizowano</th>
             <th>Data ostatniej edycji</th>
             <th>Uwagi</th>
+            <th>Realizacja Zamówienia</th>
             <th>Pobierz Plik</th>
         </tr>
     </thead>
@@ -65,6 +66,7 @@
                         </form>
                     }
                 </td>
+                
                 <td>
                     <form asp-action="PobierzPlikTekstowy" method="post">
                         <input type="hidden" name="id" value="@zamowienie.id" />

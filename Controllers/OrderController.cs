@@ -67,9 +67,9 @@ public class OrderController : Controller
         {
             dataZlozenia = DateTime.Now,
             listaPrzedmiotow = string.Join(", ", selectedProducts),
-            pracownikId = 1, // przykładowy ID pracownika //test do wyrzucenia
+            
             czyZrealizowano = "NIE",
-            dataRealizacji = DateTime.Now, //bez datetime
+            dataRealizacji = DateTime.Now, 
             uwagi = orderForm.uwagi,
             UserName = user.UserName
         };

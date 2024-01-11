@@ -16,6 +16,7 @@ namespace Zamowienia.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
@@ -29,8 +30,8 @@ namespace Zamowienia.Controllers
             return View("Registration", new RegistrationViewModel());
         }
 
-        // AccountController.cs
-
+     
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -41,10 +42,10 @@ namespace Zamowienia.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string username = GenerateUsername(model.Imie, model.Nazwisko);
+
                     var user = new ApplicationUser
                     {
-                        UserName = username,
+                        UserName = model.UserName,
                         Email = model.Email,
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
@@ -71,13 +72,6 @@ namespace Zamowienia.Controllers
                 ModelState.AddModelError(string.Empty, "Wystąpił błąd podczas rejestracji.");
                 return View("Registration", model);
             }
-        }
-
-        private string GenerateUsername(string firstName, string lastName)
-        {
-            string firstPart = firstName.Length > 2 ? firstName.Substring(0, 3) : firstName;
-            string secondPart = lastName.Length > 2 ? lastName.Substring(0, 3) : lastName;
-            return (firstPart + secondPart).ToLower();
         }
 
         [HttpGet]
