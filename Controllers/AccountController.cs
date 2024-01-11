@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Zamowienia.Models;
+using Zamowienia.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations; // Dla atrybutów walidacji

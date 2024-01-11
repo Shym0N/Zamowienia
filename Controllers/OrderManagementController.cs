@@ -57,7 +57,7 @@ public class OrderManagementController : Controller
         return RedirectToAction("Index");
     }
 
-    //[Route("OrderManagement/PobierzPlikTekstowy/{id}")]
+ 
     public  IActionResult PobierzPlikTekstowy(int id)
     {
         var zamowienie = _context.Zamowienia.FirstOrDefault(o => o.id == id);
@@ -66,7 +66,7 @@ public class OrderManagementController : Controller
             return NotFound();
         }
 
-        var trescPliku = zamowienie.listaPrzedmiotow;
+        var trescPliku = "- "+zamowienie.listaPrzedmiotow.Replace(",","\n-");
 
         var plikBytes = Encoding.UTF8.GetBytes(trescPliku);
         var nazwaPliku = $"Zamowienia_{id}.txt";
