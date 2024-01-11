@@ -6,13 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Zamowienia.Controllers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Zamowienia.Attributes;
 
 public class OrderController : Controller
 {
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly ApplicationDbContext _context;
 
-    public OrderController(ApplicationDbContext context)
+    public OrderController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
     {
+        _userManager = userManager;
         _context = context;
     }
 
@@ -40,6 +45,7 @@ public class OrderController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(OrderFormModel orderForm)
     {
+        var user = await _userManager.GetUserAsync(User);
         if (!ModelState.IsValid)
         {
             return View(orderForm);
@@ -58,13 +64,16 @@ public class OrderController : Controller
 
         // Tworzenie nowego zamówienia
         var zamowienie = new Order
-        {    
+        {
+            dataZlozenia = DateTime.Now,
             listaPrzedmiotow = string.Join(", ", selectedProducts),
-            pracownikId = 1, // przykładowy ID pracownika
+            pracownikId = 1, // przykładowy ID pracownika //test do wyrzucenia
             czyZrealizowano = "NIE",
-            dataRealizacji = DateTime.Now,
-            uwagi = orderForm.uwagi
+            dataRealizacji = DateTime.Now, //bez datetime
+            uwagi = orderForm.uwagi,
+            UserName = user.UserName
         };
+
 
         _context.Zamowienia.Add(zamowienie);
         await _context.SaveChangesAsync();

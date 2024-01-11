@@ -4,9 +4,13 @@ using Zamowienia.Data;
 using Zamowienia.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Zamowienia.Attributes;
 
 namespace Zamowienia.Controllers
 {
+    [CustomAuthorize("Administrator")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -78,34 +82,7 @@ namespace Zamowienia.Controllers
              return View(przedmiot);
     }*/
 
-        // POST: Product/Edit/5
-      /*  [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NazwaProduktu")] Przedmiot przedmiot)
-        {
-            if (id != przedmiot.Id)
-            {
-                return NotFound();
-            }
-                try
-                {
-                    _context.Update(przedmiot);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PrzedmiotExists(przedmiot.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            return View(przedmiot);
-        }*/
+    
 
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int id)

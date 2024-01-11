@@ -4,7 +4,11 @@ using Zamowienia.Data;
 using System.Threading.Tasks;
 using System;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Zamowienia.Attributes;
 
+
+[CustomAuthorize("Administrator")]
 public class OrderManagementController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -17,7 +21,7 @@ public class OrderManagementController : Controller
     public async Task<IActionResult> Index()
     {
         var zamowienia = await _context.Zamowienia
-            .Where(z => z.listaPrzedmiotow != null) // Sprawdzamy, czy listaPrzedmiotow nie jest NULL
+            .Where(z => z.listaPrzedmiotow != null) 
             .ToListAsync();
 
         return View(zamowienia);

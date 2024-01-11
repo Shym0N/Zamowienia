@@ -57,7 +57,7 @@ namespace Zamowienia.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NazwaProduktu = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    NazwaProduktu = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,6 +73,7 @@ namespace Zamowienia.Migrations
                     dataZlozenia = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
                     listaPrzedmiotow = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     pracownikId = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     czyZrealizowano = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     dataRealizacji = table.Column<DateTime>(type: "datetime2", nullable: true),
                     uwagi = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -128,8 +129,8 @@ namespace Zamowienia.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -173,8 +174,8 @@ namespace Zamowienia.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Zamowienia.Data;
 using Zamowienia.Models;
@@ -22,3 +22,4 @@ namespace Zamowienia.Controllers
         }
     }
 }
+*/

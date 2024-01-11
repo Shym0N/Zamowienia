@@ -5,8 +5,9 @@ using Zamowienia.Models;
 using Zamowienia.ViewModels;
 using System;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations; // Dla atrybutów walidacji
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
+using Zamowienia.Attributes;
 
 namespace Zamowienia.Controllers
 {
@@ -40,21 +41,20 @@ namespace Zamowienia.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string username = GenerateUsername(model.Imie, model.Nazwisko);
                     var user = new ApplicationUser
                     {
-                        UserName = model.Email,
+                        UserName = username,
                         Email = model.Email,
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
-                        TypUzytkownika = model.TypUzytkownika
+                        TypUzytkownika = string.IsNullOrEmpty(model.TypUzytkownika) ? "Użytkownik" : model.TypUzytkownika
                     };
 
                     var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (result.Succeeded)
                     {
-                        //await _signInManager.SignInAsync(user, isPersistent: false);
-                        //return RedirectToAction("Login", "Account");
                         return RedirectToAction("Index", "Home");
                     }
 
@@ -67,11 +67,17 @@ namespace Zamowienia.Controllers
             }
             catch (Exception ex)
             {
-                // Dodaj logowanie błędów
                 Console.WriteLine($"Wystąpił błąd podczas rejestracji: {ex.Message}");
                 ModelState.AddModelError(string.Empty, "Wystąpił błąd podczas rejestracji.");
                 return View("Registration", model);
             }
+        }
+
+        private string GenerateUsername(string firstName, string lastName)
+        {
+            string firstPart = firstName.Length > 2 ? firstName.Substring(0, 3) : firstName;
+            string secondPart = lastName.Length > 2 ? lastName.Substring(0, 3) : lastName;
+            return (firstPart + secondPart).ToLower();
         }
 
         [HttpGet]
@@ -87,23 +93,30 @@ namespace Zamowienia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                ApplicationUser user = null;
+                if (model.EmailOrUsername.Contains("@"))
                 {
-                    return RedirectToLocal(returnUrl);
+                    user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    user = await _userManager.FindByNameAsync(model.EmailOrUsername);
                 }
+
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
-            // Jeśli coś poszło nie tak, ponownie wyświetl formularz
             return View(model);
         }
 
@@ -112,7 +125,7 @@ namespace Zamowienia.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
@@ -126,19 +139,5 @@ namespace Zamowienia.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
-    }
-
-    public class LoginViewModel
-    {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 }

@@ -4,7 +4,11 @@ using Zamowienia.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Zamowienia.Attributes;
 
+
+[CustomAuthorize("Administrator")]
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -35,11 +39,7 @@ public class UserController : Controller
             }
 
             var result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
-            {
-                // Logika po pomyślnej zmianie roli
-            }
-            // Obsługa ewentualnych błędów
+            
         }
 
         return RedirectToAction("Index");
