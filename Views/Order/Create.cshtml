@@ -1,0 +1,27 @@
+﻿@model Zamowienia.Models.OrderFormModel
+@Html.ValidationSummary(true)
+
+<h2>Składanie Zamówienia</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label>Wybierz produkty:</label>
+        @for (int i = 0; i < Model.Produkty.Count; i++)
+        {
+            <div class="form-check">
+                <input asp-for="Produkty[i].IsSelected" class="form-check-input" />
+                <label class="form-check-label">@Model.Produkty[i].NazwaProduktu</label>
+                @Html.HiddenFor(model => model.Produkty[i].Id)
+                @Html.HiddenFor(model => model.Produkty[i].NazwaProduktu)
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="uwagi">Uwagi:</label>
+        <textarea asp-for="uwagi" class="form-control"></textarea>
+        <span asp-validation-for="uwagi" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+</form>

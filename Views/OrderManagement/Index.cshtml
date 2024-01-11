@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Zamowienia.Models.Order>
+
+@{
+    ViewData["Title"] = "Zarządzanie Zamówieniami";
+}
+<style>
+
+    .listaPrzedmiotow {
+        max-width: 400px; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
+<h2>Zarządzanie Zamówieniami</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data Złożenia</th>
+            <th>Nazwa Użytkownika</th>
+            <th>Lista Przedmiotów</th>
+            <th>Czy Zrealizowano</th>
+            <th>Data ostatniej edycji</th>
+            <th>Uwagi</th>
+            <th>Realizacja Zamówienia</th>
+            <th>Pobierz Plik</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zamowienie in Model)
+        {
+            <tr>
+                <td>@zamowienie.id</td>
+                <td>@zamowienie.dataZlozenia</td>
+                <td>@zamowienie.UserName</td>
+                <td>
+                    @foreach (var przedmiot in zamowienie.listaPrzedmiotow.Split(','))
+                    {
+                        <div class="listaPrzedmiotow ">
+                        <input type="checkbox" name="selectedItems" value="@przedmiot" />
+                        @przedmiot
+                            <br />
+                        </div>
+                    }
+                </td>
+                <td>@zamowienie.czyZrealizowano</td>
+                <td>@zamowienie.dataRealizacji</td>
+                <td>@zamowienie.uwagi</td>
+                <td>
+                    @if (zamowienie.czyZrealizowano != "TAK")
+                    {
+                        <form asp-action="RealizujZamowienie" method="post">
+                            <input type="hidden" name="id" value="@zamowienie.id" />
+                            <input type="submit" value="REALIZUJ ZAMÓWIENIE" class="btn btn-success" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="CofnijRealizacje" method="post">
+                            <input type="hidden" name="id" value="@zamowienie.id" />
+                            <input type="submit" value="COFNIJ REALIZACJĘ" class="btn btn-warning" />
+                        </form>
+                    }
+                </td>
+                
+                <td>
+                    <form asp-action="PobierzPlikTekstowy" method="post">
+                        <input type="hidden" name="id" value="@zamowienie.id" />
+                        <input type="submit" value="Pobierz Plik Tekstowy" class="btn btn-primary" />
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

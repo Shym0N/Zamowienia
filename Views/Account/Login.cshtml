@@ -1,0 +1,39 @@
+﻿@using Zamowienia.ViewModels
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmailOrUsername" class="col-md-5 control-label">Email lub nick</label>
+                <div class="col-md-10">
+                    <input asp-for="EmailOrUsername" class="form-control" placeholder="Email lub nick" />
+                    <span asp-validation-for="EmailOrUsername" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-primary">Zaloguj</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+<div>
+    <a style="text-decoration: none;" href="/Account/Rejestracja"><button class="btn btn-primary">Zarejestruj</button></a>
+</div>

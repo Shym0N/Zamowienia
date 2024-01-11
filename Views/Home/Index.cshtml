@@ -1,8 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Identity
+@using Zamowienia.Models
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Strona główna";
+    var user = await UserManager.GetUserAsync(User);
+    var isAdministrator = user != null && user.TypUzytkownika == "Administrator";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="centered-container">
+        <div class="button-row">
+            <a class="square-button @GetCustomButtonClass(isAdministrator, "primary", "order")" href="@Url.Action("Create", "Order")">Zamów</a>
+            <a class="square-button @GetCustomButtonClass(isAdministrator, "secondary")" href="@Url.Action("Index", "OrderManagement")">Zarządzaj zamówieniami</a>
+        </div>
+        <div class="button-row">
+            <a class="square-button @GetCustomButtonClass(isAdministrator, "success")" href="@Url.Action("Index", "Product")">Zarządzaj produktami</a>
+            <a class="square-button @GetCustomButtonClass(isAdministrator, "danger")" href="@Url.Action("Index", "User")">Zarządzaj użytkownikami</a>
+        </div>
+    </div>
 </div>
+
+@functions {
+    private string GetCustomButtonClass(bool isAdministrator, string colorClass, string buttonType = "")
+    {
+        if (isAdministrator)
+        {
+            return $"admin-{colorClass}";
+        }
+        else
+        {
+            if (buttonType == "order")
+            {
+                return "user-order-button";
+            }
+            else
+            {
+                return "user-button";
+            }
+        }
+    }
+}

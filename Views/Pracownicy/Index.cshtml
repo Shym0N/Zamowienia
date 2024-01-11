@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Zamowienia.Models.ApplicationUser>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Nazwa Użytkownika</th>
+            <th>Typ Użytkownika</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pracownik in Model)
+        {
+            <tr>
+                <td>@pracownik.Id</td>
+                <td>@pracownik.Imie</td>
+                <td>@pracownik.Nazwisko</td>
+                <td>@pracownik.UserName</td>
+                <td>@pracownik.TypUzytkownika</td>
+            </tr>
+        }
+    </tbody>
+</table>
