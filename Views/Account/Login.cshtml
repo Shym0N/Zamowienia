@@ -11,7 +11,7 @@
         <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="EmailOrUsername" class="col-md-2 control-label">Email lub nick</label>
+                <label asp-for="EmailOrUsername" class="col-md-5 control-label">Email lub nick</label>
                 <div class="col-md-10">
                     <input asp-for="EmailOrUsername" class="form-control" placeholder="Email lub nick" />
                     <span asp-validation-for="EmailOrUsername" class="text-danger"></span>
@@ -24,23 +24,16 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
+            <br/>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="RememberMe" /> @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default">Log in</button>
+                    <button type="submit" class="btn btn-primary">Zaloguj</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<br/>
 <div>
-    <a href="/Account/Rejestracja">Register as a new user</a>
+    <a style="text-decoration: none;" href="/Account/Rejestracja"><button class="btn btn-primary">Zarejestruj</button></a>
 </div>
