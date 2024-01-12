@@ -9,6 +9,7 @@ using Zamowienia.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Dodaj us³ugi do kontenera.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

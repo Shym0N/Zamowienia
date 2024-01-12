@@ -5,8 +5,10 @@ using Zamowienia.Models;
 
 namespace Zamowienia.Models
 {
+    
     public class RegistrationViewModel
     {
+        
         [Required]
         [EmailAddress]
         public string Email { get; set; }
